@@ -1,29 +1,22 @@
-console.log("app.js loaded");
+var app = angular.module("campus360", []);
 
-var app = angular.module('campus360', [])
+app.controller("dashboardController", function ($scope) {
+  $scope.collegename = "FISAT";
+  $scope.totalstudents = 1200;
+  $scope.totalfaculty = 85;
 
+  $scope.students = ["Shahid", "John", "Allen", "Shaun"];
 
-app.controller('dashboardController', function ($scope) {
-    $scope.collegename = "FISAT"
-    $scope.totalstudents = "1200"
-    $scope.totalfaculty = "85"
+  $scope.fees = 2500;
+  $scope.today = new Date();
 
-    console.log("dashboard controller is loaded")
+  $scope.departments = ["CSE", "MCA", "MBA"];
 
-    $scope.students=[
+  $scope.selectedDepartment = "CSE";
 
-        "Shahid","John","Allen","Shaun"
-    ]
+  $scope.showstudents = true;
 
-    $scope.addStudent=function()
-    
-    {
-
-        $scope.totalstudents++
-
-
-        $scope.showstudents=true
-    }
-
-    
-})
+  $scope.addStudent = function () {
+    $scope.totalstudents++;
+  };
+});

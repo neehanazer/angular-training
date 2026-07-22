@@ -1,36 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html ng-app="campus360">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="node_modules/angular/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
     <script src="js/app.js"></script>
-    <title>My Web Page</title>
-</head>
+    <title>Campus360 Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-<body ng-controller="dashboardController">
-
-    <input type="text" ng-model="collegename">
+  <body ng-controller="dashboardController">
     <h1>{{collegename}}</h1>
+    <label>College:</label>
+    <input type="text" ng-model="collegename" />
 
-    <input type="text" ng-model="totalstudents">
-    <p>Total Students : {{totalstudents}}</p>
-    <button ng-click="totalstudents=totalstudents+1">Add Student</button><br><br>
+    <hr />
 
-    <input type="text" ng-model="totalfaculty">
-    <p>Total Faculty : {{totalfaculty}}</p>
-    <button ng-click="totalfaculty=totalfaculty+1">Add Faculty</button><br><br>
+    <p ng-class="{'green': totalstudents > 1000, 'red': totalstudents < 1000}">
+      Students: {{totalstudents}}
+    </p>
 
-    <h2>Student List</h2>
-    <button ng-click="showstudents=!showstudents"> show/hide students </button>
+    <input type="number" ng-model="totalstudents" />
+    <button ng-click="totalstudents = totalstudents + 1">+</button>
+
+    <p ng-class="{'green': totalfaculty >= 100, 'red': totalfaculty < 100}">
+      Faculty: {{totalfaculty}}
+    </p>
+    <input type="number" ng-model="totalfaculty" />
+    <button ng-click="totalfaculty = totalfaculty + 1">+</button>
+
+    <hr />
+
+    <h3>Students</h3>
+    </button>
+    <button ng-click="showstudents = !showstudents">
+      {{ showstudents ? 'Hide' : 'Show' }}
+    </button>
+    
+
     <ul ng-show="showstudents">
-        <li ng-repeat="student in students">
-            {{student}}
-        </li>
+      <li ng-repeat="student in students">{{student}}</li>
+
     </ul>
 
+    <h2>Filter Demo</h2>  
 
-</body>
+    <p> uppercase : {{collegename | uppercase}}</p>
+    <p> lowercase : {{collegename | lowercase}}</p>
 
+    <p> currency : {{fees | currency}}</p>
+
+    <p> date : {{today | date:'dd-MM-yyyy'}}</p>
+
+    <p> number : {{fees | number}}</p>
+
+    <hr />
+
+    <h2> Select Department</h2>
+    <select ng-model="selectedDepartment" 
+            ng-options="department  for department in departments">
+    </select>
+
+    <p> Selected Department: {{selectedDepartment}}</p>
+
+    <hr />
+
+    <h2> Department Info</h2>
+    <div ng-switch="selectedDepartment">
+      <div ng-switch-when="CSE">
+        <p>Computer Science and Engineering</p>
+      </div>
+      <div ng-switch-when="MCA">
+        <p>Master of Computer Applications</p>
+      </div>
+      <div ng-switch-when="MBA">
+        <p>Master of Business Administration</p>
+      </div>
+      <div ng-switch-default>
+        <p>Please select a department.</p>
+      </div>
+    </div>
+  </body>
 </html>
